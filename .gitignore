@@ -25,5 +25,5 @@ dist-ssr
 
 # private key stuff idk
 .env
-.env.local
-.env.*.local 
+.env.pub
+
