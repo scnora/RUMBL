@@ -10,7 +10,6 @@ function App() {
         <h1>RUMBL</h1>
         <h2>A dating app but for recipes!</h2>
         <p>Swipe right to find your next favorite meal</p>
-        <SwipeDeck></SwipeDeck>
         
       </div>
       
