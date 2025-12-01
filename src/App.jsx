@@ -13,40 +13,46 @@ export default function RecipeSwiper() {
     fetchRecipes();
   }, []);
 
-  const fetchRecipes = async () => {
+  async function fetchRecipes() {
     setLoading(true);
     try {
-      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      const data = await response.json();
+      const res = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/search.php?s="
+      );
+      const data = await res.json();
       if (data.meals) {
         setRecipes(data.meals);
+        setCurrentIndex(0);
       }
-    } catch (error) {
-      console.error('Error fetching recipes:', error);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }
 
-  const handleDiscard = () => {
+  function handleDiscard() {
     if (currentIndex < recipes.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex((i) => i + 1);
     } else {
       fetchRecipes();
-      setCurrentIndex(0);
     }
-  };
+  }
 
-  const handleSave = () => {
-    setSavedRecipes([...savedRecipes, recipes[currentIndex]]);
+  function handleSave() {
+    const current = recipes[currentIndex];
+    if (!current) return;
+
+    setSavedRecipes((prev) => [...prev, current]);
+
     if (currentIndex < recipes.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex((i) => i + 1);
     } else {
       fetchRecipes();
-      setCurrentIndex(0);
     }
-  };
+  }
 
-  const currentRecipe = recipes[currentIndex];
+  const currentRecipe = recipes.length > 0 ? recipes[currentIndex] : null;
 
   if (loading) {
     return (
@@ -92,8 +98,8 @@ export default function RecipeSwiper() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-100 to-orange-100 p-4">
       <div className="mb-6 flex items-center gap-3">
-        <ChefHat className="w-8 h-8 text-pink-600" />
-        <h1 className="text-4xl font-bold text-gray-800">Recipe Swiper</h1>
+        <ChefHat className="chef" />
+        <h1 className="text-4xl font-bold text-gray-800">RUMBL</h1>
       </div>
 
       <button
@@ -127,16 +133,16 @@ export default function RecipeSwiper() {
             </div>
           </div>
 
-          <div className="flex justify-center gap-6 mt-8">
+          <div className="buttons">
             <button
               onClick={handleDiscard}
-              className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-50 transition-colors"
+              className="discard"
             >
               <X className="w-8 h-8 text-red-500" />
             </button>
             <button
               onClick={handleSave}
-              className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-green-50 transition-colors"
+              className="right"
             >
               <Heart className="w-8 h-8 text-green-500" />
             </button>
