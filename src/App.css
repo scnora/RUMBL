@@ -235,6 +235,7 @@ body {
   height: 400px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .saved-card img {
@@ -297,4 +298,106 @@ body {
 .saved-instructions::-webkit-scrollbar-thumb {
   background: #ff4d6d;
   border-radius: 10px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.2); /* soft glassy overlay */
+  backdrop-filter: blur(4px);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  z-index: 10;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(255, 255, 255, 0.4); 
+  transform: scale(1.1); 
+}
+
+/* --- SPLASH SCREEN --- */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #19a09e; /* Teal background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  color: white;
+}
+
+/* The Container for Icons (Row Layout) */
+.splash-scene {
+  display: flex;
+  align-items: center; /* Vertically center them */
+  gap: 20px;           /* Space between Fork, Plate, Spoon */
+  margin-bottom: 1.5rem;
+}
+
+/* The Plate Wrapper */
+.plate-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The Plate (Circle Icon) */
+.plate-icon {
+  color: white;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); /* Slight shadow for depth */
+}
+
+/* The Utensils (Fork/Knife) */
+.cutlery {
+  color: rgba(255, 255, 255, 0.6); /* Slightly faded */
+}
+
+/* Flip the right utensil so it looks like a matching set */
+.cutlery.flipped {
+  transform: scaleX(-1);
+}
+
+/* The Heart Beat Animation */
+.splash-heart {
+  position: absolute; /* Sits on top of the Circle */
+  color: #ff4d6d;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); } /* Grow bigger */
+  100% { transform: scale(1); }
+}
+
+/* Text Styles */
+.splash-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  margin: 0;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.splash-caption {
+  font-size: 1.2rem;
+  opacity: 0.95;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
